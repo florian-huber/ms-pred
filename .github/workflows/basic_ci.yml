@@ -23,12 +23,12 @@ jobs:
       with:
         mamba-version: "*"
         activate-environment: ms-gen
-        environment-file: environment.yml
+        environment-file: environment_testing.yml
 
     - name: Install requirements
       shell: bash
       run: |
-        pip install -r requirements.txt
+        pip install -r requirements_testing.txt
         pip install pytest
 
     - name: Pip list
