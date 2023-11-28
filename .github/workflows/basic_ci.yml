@@ -28,7 +28,7 @@ jobs:
         python-version: 3.8
         mamba-version: "*"
         use-mamba: true
-        activate-environment: anaconda-client-env
+        activate-environment: ms-gen
         environment-file: environment_testing.yml
 
     - name: Show conda config
