@@ -1,4 +1,5 @@
 pytest
+Cython
 scikit-learn
 pathos
 hyperopt
