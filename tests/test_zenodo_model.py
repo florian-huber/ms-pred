@@ -2,12 +2,12 @@ import pytest
 import requests
 import zipfile
 from ms_pred.dag_pred import joint_model
-import pandas as pd
+
 
 @pytest.fixture(scope="session")
 def download_model(tmp_path_factory):
     url = "https://zenodo.org/record/8433354/files/canopus_iceberg_models.zip"
-    tmp_path = tmp_path_factory.mktemp("data")  # create a temporary directory
+    tmp_path = tmp_path_factory.mktemp("data")
     zip_path = tmp_path / "canopus_iceberg_models.zip"
 
     # Download the file
@@ -22,7 +22,7 @@ def download_model(tmp_path_factory):
     return tmp_path
 
 @pytest.fixture(scope="module")
-def load_model(download_model):
+def zenodo_model(download_model):
     model_path = download_model
     inten_ckpt = model_path / "canopus_iceberg_score.ckpt"
     gen_ckpt = model_path / "canopus_iceberg_generate.ckpt"
@@ -32,18 +32,10 @@ def load_model(download_model):
     )
     return model
 
-#def test_sample_data():
-#    test_df = pd.read_csv("../data/spec_datasets/sample_labels.tsv", sep="\t")
-#    assert test_df.shape == (20, 3)
-
-def test_model_prediction(load_model):
-    #test_df = pd.read_csv("../data/spec_datasets/sample_labels.tsv", sep="\t")
-
-    model = load_model
-
-    outputs = model.predict_mol(
-        smi="CCOC(=O)c1ccc(NC(=S)NC(=O)c2ccccc2)cc1",#test_df.iloc[2]["smiles"],
-        adduct="[M+Na]+", #test_df.iloc[2]["ionization"],
+def test_model_prediction(zenodo_model):
+    outputs = zenodo_model.predict_mol(
+        smi="CCOC(=O)c1ccc(NC(=S)NC(=O)c2ccccc2)cc1",
+        adduct="[M+Na]+",
         device="cpu",
         max_nodes=100,
         binned_out=False,
