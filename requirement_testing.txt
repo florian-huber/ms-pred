@@ -1,0 +1,9 @@
+pytest
+scikit-learn
+pathos
+hyperopt
+setuptools==59.5.0
+CairoSVG
+ipdb
+omegaconf
+torch_geometric
