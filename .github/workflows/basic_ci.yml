@@ -51,6 +51,13 @@ jobs:
         which python
         python --version
 
+    - name: Python info 2
+      shell: bash -l {0}
+      run: |
+        conda activate ms-gen
+        which python
+        python --version
+
     - name: Show environment variables
       shell: bash -l {0}
       run: |
