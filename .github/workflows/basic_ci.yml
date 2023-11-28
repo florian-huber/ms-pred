@@ -9,36 +9,44 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
 
-    - name: Set up Conda environment
+    - name: Set up Mamba
       uses: conda-incubator/setup-miniconda@v2
       with:
         activate-environment: ms-gen
         environment-file: environment.yml
+        use-mamba: true
         auto-activate-base: false
 
-    - name: Install requirements
+    - name: Install requirements with Mamba
+      shell: bash
       run: |
-        conda activate ms-gen
-        pip install -r requirements.txt
+        mamba activate ms-gen
+        mamba install -c conda-forge --file requirements.txt
 
     - name: Install package
+      shell: bash
       run: |
-        conda activate ms-gen
+        mamba activate ms-gen
         python setup.py develop
 
     - name: Install pytest
+      shell: bash
       run: |
-        conda activate ms-gen
-        pip install pytest
+        mamba activate ms-gen
+        mamba install pytest
 
     - name: Run tests with pytest
+      shell: bash
       run: |
-        conda activate ms-gen
+        mamba activate ms-gen
         pytest
