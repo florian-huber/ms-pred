@@ -28,6 +28,7 @@ jobs:
     - name: Install requirements
       shell: bash
       run: |
+        mamba activate ms-gen
         pip install -r requirements_testing.txt
         pip install pytest
 
@@ -39,9 +40,11 @@ jobs:
     - name: Install package
       shell: bash
       run: |
+        mamba activate ms-gen
         pip install -e .
 
     - name: Run tests with pytest
       shell: bash
       run: |
+        mamba activate ms-gen
         pytest
