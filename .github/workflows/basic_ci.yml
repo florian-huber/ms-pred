@@ -39,10 +39,9 @@ jobs:
     - name: Install package
       shell: bash
       run: |
-        python setup.py develop
+        pip install -e .
 
     - name: Run tests with pytest
       shell: bash
       run: |
-        mamba activate ms-gen
         pytest
