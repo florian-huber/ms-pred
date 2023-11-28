@@ -1,4 +1,3 @@
-name: ms-gen
 channels:
 - pytorch
 - dglteam
