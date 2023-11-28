@@ -27,6 +27,11 @@ jobs:
         mamba-version: "*"
         activate-environment: ms-gen
         environment-file: environment_testing.yml
+        use-mamba: true
+        auto-activate-base: false
+        
+    - name: Initialize Conda
+      run: echo ". /usr/share/miniconda/etc/profile.d/conda.sh" >> $GITHUB_ENV
 
     - name: Install requirements
       shell: bash
