@@ -20,30 +20,26 @@ jobs:
         fetch-depth: 0
 
     - name: Set up Mamba
-      uses: conda-incubator/setup-miniconda@v2
+      uses: mamba-org/setup-micromamba@v1
       with:
         activate-environment: ms-gen
         environment-file: environment.yml
-        use-mamba: true
-        auto-activate-base: false
 
-    - name: Install requirements with Mamba
+    - name: Install requirements
       shell: bash
       run: |
-        mamba activate ms-gen
-        mamba install -c conda-forge --file requirements.txt
+        pip install -r requirements.txt
+        pip install pytest
 
+    - name: Pip list
+      shell: bash
+      run: |
+        pip list
+  
     - name: Install package
       shell: bash
       run: |
-        mamba activate ms-gen
         python setup.py develop
-
-    - name: Install pytest
-      shell: bash
-      run: |
-        mamba activate ms-gen
-        mamba install pytest
 
     - name: Run tests with pytest
       shell: bash
