@@ -29,6 +29,7 @@ jobs:
         mamba-version: "*"
         use-mamba: true
         environment-file: environment_testing.yml
+        activate-environment: ms-gen
 
     - name: Show conda config
       shell: bash -l {0}
@@ -39,44 +40,45 @@ jobs:
         conda config --show
         conda env list
 
-    - name: Initialize mamba
+    - name: Debug - List Conda environments
       shell: bash -l {0}
       run: |
-        mamba init
+        conda env list
   
     - name: Python info
       shell: bash -l {0}
       run: |
         which python
         python --version
+
     - name: Show environment variables
       shell: bash -l {0}
       run: |
         env | sort    
 
     - name: Install requirements
-      shell: bash
+      shell: bash -l {0}
       run: |
-        mamba activate ms-gen
+        conda activate ms-gen
         pip install -r requirements_testing.txt
         pip install pytest
 
     - name: Show environment (again)
-      shell: bash
+      shell: bash -l {0}
       run: |
-        mamba activate ms-gen
+        conda activate ms-gen
         pip list
         conda list
         conda info
   
     - name: Install package
-      shell: bash
+      shell: bash -l {0}
       run: |
-        mamba activate ms-gen
+        conda activate ms-gen
         pip install -e .
 
     - name: Run tests with pytest
-      shell: bash
+      shell: bash -l {0}
       run: |
-        mamba activate ms-gen
+        conda activate ms-gen
         pytest
