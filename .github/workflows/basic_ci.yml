@@ -16,15 +16,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - uses: conda-incubator/setup-miniconda@v3
-      with:
-        mamba-version: "*"
-        activate-environment: ms-gen
-        environment-file: etc/example-environment.yml
 
     - name: Set up Mamba
-      uses: mamba-org/setup-micromamba@v1
+      uses: conda-incubator/setup-miniconda@v3
       with:
+        mamba-version: "*"
         activate-environment: ms-gen
         environment-file: environment.yml
 
