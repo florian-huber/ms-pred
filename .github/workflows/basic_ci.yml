@@ -28,19 +28,19 @@ jobs:
     - name: Install requirements
       shell: bash
       run: |
-        conda activate ms-gen
         pip install -r requirements_testing.txt
         pip install pytest
 
-    - name: Pip list
+    - name: Show environment
       shell: bash
       run: |
         pip list
+        conda list
+        conda info
   
     - name: Install package
       shell: bash
       run: |
-        conda activate ms-gen
         pip install -e .
 
     - name: Run tests with pytest
