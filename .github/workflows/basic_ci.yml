@@ -1,0 +1,44 @@
+name: Basic Python Package Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Set up Conda environment
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: ms-gen
+        environment-file: environment.yml
+        auto-activate-base: false
+
+    - name: Install requirements
+      run: |
+        conda activate ms-gen
+        pip install -r requirements.txt
+
+    - name: Install package
+      run: |
+        conda activate ms-gen
+        python setup.py develop
+
+    - name: Install pytest
+      run: |
+        conda activate ms-gen
+        pip install pytest
+
+    - name: Run tests with pytest
+      run: |
+        conda activate ms-gen
+        pytest
